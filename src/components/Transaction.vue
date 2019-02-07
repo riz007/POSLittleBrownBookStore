@@ -1,8 +1,8 @@
 <template>
     <div>
-        <button class="btn btn-info" data-toggle="modal" data-target="#shoppingCart">Basket ({{ items.length }})</button>
+        <button class="btn btn-warning text-uppercase font-weight-bold" data-toggle="modal" data-target="#shoppingCart"><span class="fa fa-shopping-basket fa-fw" style="margin-right: 5px;"></span><span>Basket ({{ items.length }})</span></button>
         <div id="shoppingCart" class="modal fade">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-line">
                 <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Customer's Basket</h5>
@@ -52,7 +52,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" data-dismiss="modal">Keep shopping</button>
-                    <button class="btn btn-primary">Check out</button>
+                    <button class="btn btn-line">Check out</button>
                 </div>
                 </div>
             </div>
@@ -74,37 +74,34 @@ export default {
     },
     discount: function(item) {
         var discount = 0;
-            //  if(item.numberOfItems == 2) {
-            //     discount = 0.1;
-            //     return subtotal - discount;
+
+         this.items.forEach(function(item) {
+            if(item.length == 2) {
+                discount = 0.1;
+                console.log(discount);
+            }
+            // else if(item.numberOfItems == 3) {
+            //     discount = 0.11;
+            //     return this.subtotal - discount;
             // }
-        //  this.items.forEach(function(item) {
-        //     if(item.numberOfItems == 2) {
-        //         discount = 0.1;
-        //         return subtotal - discount;
-        //     }
-        //     else if(item.numberOfItems == 3) {
-        //         discount = 0.11;
-        //         return this.subtotal - discount;
-        //     }
-        //     else if(item.numberOfItems == 4) {
-        //         discount = 0.12;
-        //         return this.subtotal - discount;
-        //     }
-        //     else if(item.numberOfItems == 5) {
-        //         discount = 0.13;
-        //         return this.subtotal - discount;
-        //     }
-        //     else if(item.numberOfItems == 6) {
-        //         discount = 0.14;
-        //         return this.subtotal - discount;
-        //     }
-        //     else if(item.numberOfItems == 7) {
-        //         discount = 0.15;
-        //         return this.subtotal - discount;
-        //     }
+            // else if(item.numberOfItems == 4) {
+            //     discount = 0.12;
+            //     return this.subtotal - discount;
+            // }
+            // else if(item.numberOfItems == 5) {
+            //     discount = 0.13;
+            //     return this.subtotal - discount;
+            // }
+            // else if(item.numberOfItems == 6) {
+            //     discount = 0.14;
+            //     return this.subtotal - discount;
+            // }
+            // else if(item.numberOfItems == 7) {
+            //     discount = 0.15;
+            //     return this.subtotal - discount;
+            // }
         
-        // });
+        });
         return this.subtotal * discount;
        
     },
@@ -122,3 +119,40 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.modal-header {
+    background-color: #4ecd00;
+    color: #ffffff;
+}
+
+.modal-header .close {
+    color: #fff; 
+    opacity: 1;
+}
+
+@media only screen and (min-width: 768px) {
+    .modal-line {
+        min-width: 768px;
+        margin: auto;
+    }
+}
+
+.modal-dialog {
+    min-height: calc(100vh - 60px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: auto;
+}
+@media(max-width: 768px) {
+  .modal-dialog {
+    min-height: calc(100vh - 20px);
+  }
+}
+
+.btn-line {
+    background-color: #4ecd00;
+    color: #ffffff;
+}
+</style>

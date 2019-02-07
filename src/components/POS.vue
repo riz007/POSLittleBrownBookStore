@@ -1,13 +1,16 @@
 <template>
     <div>
-      <div class="row mb-3">
+      <nav class="navbar navbar-light bg-line row mb-3">
         <div class="col-md-9">
-          <h1>Little Brown Book Shop</h1>
+            <a class="navbar-brand" href="#">
+              <img v-bind:src="'/assets/book-shelf.png'" width="30" height="30" class="d-inline-block align-top" alt="">
+              Little Brown Book Shop
+            </a>
         </div>
         <div class="col-md-3">
-           <Transaction :items="lineItems" :edit="toggleEdit" :remove="removeItem"></Transaction>
+          <Transaction :items="lineItems" :edit="toggleEdit" :remove="removeItem"></Transaction>
         </div>
-      </div>
+      </nav>
 
       <div class="row">
         <ItemList :items="items" :add="onItemClick"></ItemList>
@@ -72,5 +75,15 @@ export default {
   }
 };
 </script>
-<style>
+<style scoped>
+
+.navbar {
+  background-color: #00b900;
+  height: 71px;
+}
+.navbar-brand {
+  color: #ffffff;
+  text-transform: uppercase;
+  font-weight: bold;
+}
 </style>
