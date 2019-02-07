@@ -1,21 +1,25 @@
 <template>
-    <div class="container">
-        <h1 class="text-center">Point of Sale</h1>
-        <div class="row">
-          <div class="col-12 col-md-12 col-sm-12">
-              <ItemList :items="items" :add="onItemClick"></ItemList>
-          </div>
-          <!-- <div class="col-4 col-md-4 col-sm-4">
-              <Transaction :items="lineItems" :edit="toggleEdit" :remove="removeItem"></Transaction>
-          </div> -->
-
+    <div>
+      <div class="row mb-3">
+        <div class="col-md-9">
+          <h1>Little Brown Book Shop</h1>
         </div>
+        <div class="col-md-3">
+           <Transaction :items="lineItems" :edit="toggleEdit" :remove="removeItem"></Transaction>
+        </div>
+      </div>
+
+      <div class="row">
+        <ItemList :items="items" :add="onItemClick"></ItemList>
+      </div>
     </div>
 </template>
+
 <script>
 import Transaction from "./Transaction";
 import ItemList from "./ItemList";
 import axios from "axios";
+
 export default {
   components: {
     Transaction,

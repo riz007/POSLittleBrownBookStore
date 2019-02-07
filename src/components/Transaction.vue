@@ -1,44 +1,62 @@
 <template>
     <div>
-        <table class="table table-striped table-hover table-bordered" v-if="items.length">
-            <thead>
-                <tr>
-                    <th>Book Title</th>
-                    <th>Quantity</th>
-                    <th>Amount</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="item in items" :key="item.id">
-                    <td>{{ item.item.title }}</td>
-                    <td>
-                        <span v-if="!item.editing" @dblclick="toggleEdit(item)">{{ item.numberOfItems }}</span>
-                        <input v-if="item.editing" @blur="toggleEdit(item)" type="number" v-model="item.numberOfItems">
-                    </td>
-                    <td>{{ item.numberOfItems * item.item.price }}</td>
-                    <td><a href="#" class="fa fa-times" @click="removeItem(item)"></a></td>
-                </tr>
-            </tbody>
-        </table>
-        <p v-if="!items.length">No items have been added.</p>
+        <button class="btn btn-info" data-toggle="modal" data-target="#shoppingCart">Basket ({{ items.length }})</button>
+        <div id="shoppingCart" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Customer's Basket</h5>
+                    <button class="close" data-dismiss="modal">
+                    &times;
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table" v-if="items.length">
+                    <thead>
+                        <tr>
+                            <th>Book Title</th>
+                            <th>Quantity</th>
+                            <th>Amount</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr  v-for="item in items" :key="item.id">
+                        <td>{{ item.item.title }}</td>
+                        <td>
+                            <span v-if="!item.editing" @dblclick="toggleEdit(item)">{{ item.numberOfItems }}</span>
+                            <input v-if="item.editing" @blur="toggleEdit(item)" type="number" v-model="item.numberOfItems">
+                        </td>
+                        <td>{{ item.numberOfItems * item.item.price }}</td>
+                        <td>
+                            <button class="btn btn-sm btn-danger"  @click="removeItem(item)"><i class="fa fa-close"></i></button>
+                        </td>
+                        </tr>
 
-        <table class="table">
-            <tbody>
-                <tr>
-                    <td>Subtotal:</td>
-                    <td>{{ subtotal }}</td>
-                </tr>
-                <tr>
-                    <td>Discount:</td>
-                    <td>{{ discount }}</td>
-                </tr>
-                <tr>
-                    <td>Total:</td>
-                    <td>{{ total }}</td>
-                </tr>
-            </tbody>
-        </table>
+                        <tr>
+                            <th colspan="2">Subtotal:</th>
+                            <td>{{ subtotal }}</td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">Discount:</th>
+                            <td>{{ discount }}</td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">Total:</th>
+                            <td>{{ total }}</td>
+                        </tr>
+                        <th></th>
+                    </tbody>
+                    </table>
+                    <p v-if="!items.length">No items have been added.</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-dismiss="modal">Keep shopping</button>
+                    <button class="btn btn-primary">Check out</button>
+                </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -54,8 +72,12 @@ export default {
       });
       return subtotal;
     },
-    discount: function() {
+    discount: function(item) {
         var discount = 0;
+            //  if(item.numberOfItems == 2) {
+            //     discount = 0.1;
+            //     return subtotal - discount;
+            // }
         //  this.items.forEach(function(item) {
         //     if(item.numberOfItems == 2) {
         //         discount = 0.1;
