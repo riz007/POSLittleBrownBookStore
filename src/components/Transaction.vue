@@ -52,7 +52,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" data-dismiss="modal">Keep shopping</button>
-                    <button class="btn btn-line">Check out</button>
+                    <button class="btn btn-line" @click='checkout'>Check out</button>
                 </div>
                 </div>
             </div>
@@ -75,11 +75,11 @@ export default {
     discount: function(item) {
         var discount = 0;
 
-         this.items.forEach(function(item) {
-            if(item.length == 2) {
-                discount = 0.1;
-                console.log(discount);
-            }
+        //  this.items.forEach(function(item) {
+        //     if(item.length == 2) {
+        //         discount = 0.1;
+        //         console.log(discount);
+        //     }
             // else if(item.numberOfItems == 3) {
             //     discount = 0.11;
             //     return this.subtotal - discount;
@@ -101,7 +101,7 @@ export default {
             //     return this.subtotal - discount;
             // }
         
-        });
+        // });
         return this.subtotal * discount;
        
     },
@@ -115,12 +115,15 @@ export default {
     },
     removeItem: function(item) {
       this.remove(item);
+    },
+    checkout() {
+        alert('Pay us $' + this.subtotal);
     }
   }
 };
 </script>
 
-<style scoped>
+<style>
 .modal-header {
     background-color: #4ecd00;
     color: #ffffff;
@@ -149,6 +152,10 @@ export default {
   .modal-dialog {
     min-height: calc(100vh - 20px);
   }
+}
+
+.modal-backdrop {
+    position: inherit;
 }
 
 .btn-line {
