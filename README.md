@@ -18,5 +18,6 @@ npm run build
 https://github.com/riz007/POSLittleBrownBookStore
 
 #heroku live server
+https://ancient-woodland-88371.herokuapp.com/
 
 For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
