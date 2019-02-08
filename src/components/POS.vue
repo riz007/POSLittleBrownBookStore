@@ -1,17 +1,16 @@
 <template>
     <div>
-      <nav class="navbar navbar-light fixed-top bg-line row mb-3">
+      <nav class="navbar navbar-light bg-line row mb-3">
         <div class="col-md-9">
             <a class="navbar-brand" href="#">
-              <img v-bind:src="'/assets/book-shelf.png'" width="30" height="30" class="d-inline-block align-top" alt="">
-              Little Brown Book Shop
+              <span class="fa fa-book" style="margin-right: 5px;"></span>Little Brown Book Shop
             </a>
         </div>
         <div class="col-md-3">
           <Transaction :items="lineItems" :edit="toggleEdit" :remove="removeItem"></Transaction>
         </div>
       </nav>
-      <br/><br/><br/><br/>
+      <br/><br/>
       <div class="row">
         <ItemList :items="items" :add="onItemClick"></ItemList>
       </div>

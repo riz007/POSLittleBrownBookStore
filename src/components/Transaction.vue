@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button class="btn btn-warning text-uppercase font-weight-bold" data-toggle="modal" data-target="#shoppingCart"><span class="fa fa-shopping-basket fa-fw" style="margin-right: 5px;"></span><span>Basket ({{ items.length }})</span></button>
+        <button id="cartBtn" class="btn btn-warning text-uppercase font-weight-bold" data-toggle="modal" data-target="#shoppingCart"><span class="fa fa-shopping-basket fa-fw" style="margin-right: 5px;"></span><span>Basket ({{ items.length }})</span></button>
         <div id="shoppingCart" class="modal fade">
             <div class="modal-dialog modal-line">
                 <div class="modal-content">
@@ -35,7 +35,7 @@
 
                         <tr>
                             <th colspan="2">Subtotal:</th>
-                            <td>{{ subtotal }}</td>
+                            <td>{{ subtotal  }}</td>
                         </tr>
                         <tr>
                             <th colspan="2">Discount:</th>
@@ -43,15 +43,14 @@
                         </tr>
                         <tr>
                             <th colspan="2">Total:</th>
-                            <td>{{ total }}</td>
+                            <td>{{ total | toTHB }}</td>
                         </tr>
-                        <th></th>
                     </tbody>
                     </table>
                     <p v-if="!items.length">No items have been added.</p>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" data-dismiss="modal">Keep shopping</button>
+                    <button class="btn btn-secondary" data-dismiss="modal">Go Back</button>
                     <button class="btn btn-line" @click='checkout'>Check out</button>
                 </div>
                 </div>
@@ -74,39 +73,34 @@ export default {
     },
     discount: function(item) {
         var discount = 0;
-
-        //  this.items.forEach(function(item) {
-        //     if(item.length == 2) {
-        //         discount = 0.1;
-        //         console.log(discount);
-        //     }
-            // else if(item.numberOfItems == 3) {
-            //     discount = 0.11;
-            //     return this.subtotal - discount;
-            // }
-            // else if(item.numberOfItems == 4) {
-            //     discount = 0.12;
-            //     return this.subtotal - discount;
-            // }
-            // else if(item.numberOfItems == 5) {
-            //     discount = 0.13;
-            //     return this.subtotal - discount;
-            // }
-            // else if(item.numberOfItems == 6) {
-            //     discount = 0.14;
-            //     return this.subtotal - discount;
-            // }
-            // else if(item.numberOfItems == 7) {
-            //     discount = 0.15;
-            //     return this.subtotal - discount;
-            // }
         
-        // });
-        return this.subtotal * discount;
-       
+        this.items.forEach(function(item) {
+
+            var bookId = item.item.id;
+            var bookTitle = item.item.title;
+            let uniqueArray = [...new Set([bookId])];
+
+            if(bookTitle.startsWith('Harry Potter') && uniqueArray && item.numberOfItems == 2) {
+                discount = 0.1;
+            } else if(bookTitle.startsWith('Harry Potter') && uniqueArray && item.numberOfItems == 3) {
+                discount = 0.11;
+            } else if(bookTitle.startsWith('Harry Potter') && uniqueArray && item.numberOfItems == 4) {
+                discount = 0.12;
+            } else if(bookTitle.startsWith('Harry Potter') && uniqueArray && item.numberOfItems == 5) {
+                discount = 0.13;
+            } else if(bookTitle.startsWith('Harry Potter') && uniqueArray && item.numberOfItems == 6) {
+                discount = 0.14;
+            } else if(bookTitle.startsWith('Harry Potter') && uniqueArray && item.numberOfItems == 6) {
+                discount = 0.15;
+            } else {
+                discount = 0;
+            }
+        });
+
+        return this.subtotal * discount;   
     },
     total: function() {
-      return this.subtotal + this.discount;
+      return this.subtotal - this.discount;
     }
   },
   methods: {
@@ -117,7 +111,7 @@ export default {
       this.remove(item);
     },
     checkout() {
-        alert('Pay us $' + this.subtotal);
+        alert('Pay us ฿' + this.total);
     }
   }
 };
@@ -125,7 +119,7 @@ export default {
 
 <style>
 .modal-header {
-    background-color: #4ecd00;
+    background-color: #00b900;
     color: #ffffff;
 }
 
@@ -153,13 +147,14 @@ export default {
     min-height: calc(100vh - 20px);
   }
 }
-
-.modal-backdrop {
-    position: inherit;
+.btn-line {
+    background-color: #00b900;
+    color: #ffffff;
 }
 
-.btn-line {
-    background-color: #4ecd00;
-    color: #ffffff;
+#cartBtn {
+    position: fixed;
+    z-index: 999;
+    top: 3%;
 }
 </style>

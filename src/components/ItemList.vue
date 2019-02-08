@@ -55,11 +55,6 @@ export default {
 }
 .card-text, .card-title {
   font-size: 14px;
-  /* text-overflow: ellipsis;
-  overflow: hidden; 
-  min-width: 160px; 
-  height: 1.2em; 
-  white-space: nowrap; */
 }
 
 .btn-success {
