@@ -14,6 +14,7 @@
                     <table class="table" v-if="items.length">
                     <thead>
                         <tr>
+                            <th></th>
                             <th>Book Title</th>
                             <th>Quantity</th>
                             <th>Amount</th>
@@ -21,27 +22,30 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr  v-for="item in items" :key="item.id">
+                        <tr v-for="item in items" :key="item.id" class="border-bottom">
+                        <td><img v-bind:src="item.item.cover" alt="Book cover image" class="circle-img"></td>
                         <td>{{ item.item.title }}</td>
                         <td>
                             <span v-if="!item.editing" @dblclick="toggleEdit(item)">{{ item.numberOfItems }}</span>
                             <input v-if="item.editing" @blur="toggleEdit(item)" type="number" v-model="item.numberOfItems">
                         </td>
                         <td>{{ item.numberOfItems * item.item.price }}</td>
-                        <td>
+                        <td class="text-center">
                             <button class="btn btn-sm btn-danger"  @click="removeItem(item)"><i class="fa fa-close"></i></button>
                         </td>
                         </tr>
-
                         <tr>
+                            <td></td>
                             <th colspan="2">Subtotal:</th>
                             <td>{{ subtotal  }}</td>
                         </tr>
                         <tr>
+                            <td></td>
                             <th colspan="2">Discount:</th>
                             <td>{{ discount }}</td>
                         </tr>
                         <tr>
+                            <td></td>
                             <th colspan="2">Total:</th>
                             <td>{{ total | toTHB }}</td>
                         </tr>
@@ -156,5 +160,22 @@ export default {
     position: fixed;
     z-index: 999;
     top: 3%;
+    right: 17%;
+}
+
+.circle-img {
+    border-radius: 10%;
+    -moz-border-radius: 10%;
+    -webkit-border-radius: 10%;
+    width: 50%;
+
+}
+
+.table td, .table th {
+    border-top: none;
+}
+
+.border-bottom {
+    border-bottom: 2px solid #dee2e6;
 }
 </style>

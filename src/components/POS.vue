@@ -1,6 +1,6 @@
 <template>
-    <div>
-      <nav class="navbar navbar-light bg-line row mb-3">
+    <div class="container">
+      <!-- <nav class="navbar navbar-light bg-line row mb-3">
         <div class="col-md-9">
             <a class="navbar-brand" href="#">
               <span class="fa fa-book" style="margin-right: 5px;"></span>Little Brown Book Shop
@@ -9,11 +9,11 @@
         <div class="col-md-3">
           <Transaction :items="lineItems" :edit="toggleEdit" :remove="removeItem"></Transaction>
         </div>
-      </nav>
+      </nav> -->
+      <NavBar></NavBar>
+      <Transaction :items="lineItems" :edit="toggleEdit" :remove="removeItem"></Transaction>
       <br/><br/>
-      <div class="row">
-        <ItemList :items="items" :add="onItemClick"></ItemList>
-      </div>
+      <ItemList :items="items" :add="onItemClick"></ItemList>
     </div>
 </template>
 
@@ -21,11 +21,13 @@
 import Transaction from "./Transaction";
 import ItemList from "./ItemList";
 import axios from "axios";
+import NavBar from "./NavBar";
 
 export default {
   components: {
     Transaction,
-    ItemList
+    ItemList,
+    NavBar
   },
   data() {
     return {
@@ -74,16 +76,3 @@ export default {
   }
 };
 </script>
-<style scoped>
-
-.navbar {
-  background-color: #00b900;
-  height: 71px;
-  margin-bottom: 20px;
-}
-.navbar-brand {
-  color: #ffffff;
-  text-transform: uppercase;
-  font-weight: bold;
-}
-</style>

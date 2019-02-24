@@ -1,17 +1,19 @@
 <template>
-  <div>
-    <h3 class="title text-center text-uppercase font-weight-bold">All Books</h3>
-    <p class="text-center">Total {{items.length}} Books in Store</p>
-    <div class="row">
-      <div class="col-md-2" v-for="item in items" :key="item.id">
-          <div class="card">
-            <img v-bind:src="item.cover" alt="Book cover image" class="card-img-top">
-            <i class="fa fa-plus btn-success" @click="itemClicked(item)"></i>
-            <div class="card-body">
-              <h4 class="card-title">{{ item.title  }}</h4>
-              <div class="card-text">{{ item.price | toTHB }}</div>
-            </div>
+  <div class="row">
+    <div class="col-12 col-xs-2 col-sm-4 col-md-3 col-lg-3" v-for="item in items" :key="item.id">
+      <div class="card mt-3">
+        <img v-bind:src="item.cover" alt="Book cover image" class="card-img-top">
+        <div class="card-body">
+          <h4 class="card-title">{{ item.title }}</h4>
+          <div class="row">
+              <div class="col">
+                  <p class="card-text">{{ formatPrice (item.price) | toTHB }}</p>
+              </div>
+              <div class="col">
+                <button type="button" class="btn btn-primary btn-lg btn-block"  @click="itemClicked(item)">Add to Cart</button>
+              </div>
           </div>
+        </div>
       </div>
     </div>
   </div>
@@ -24,6 +26,10 @@ export default {
   methods: {
     itemClicked(item) {
       this.add(item);
+    },
+    formatPrice(value) {
+        let val = (value/1).toFixed(2).replace('.', '.')
+        return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
     }
   }
 };
@@ -33,9 +39,23 @@ export default {
 <style scoped>
 
 .card {
-    background-color: #fff;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border: none;
 }
+
+.card:hover {
+    box-shadow: 0 0 11px rgba(33,33,33,.2); 
+    -webkit-box-shadow: 0 0 11px rgba(33,33,33,.2); 
+    -moz-box-shadow: 0 0 11px rgba(33,33,33,.2); 
+    cursor: pointer;
+}
+
+.card-title {
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
+
 
 .card i {
     width: 50px;
@@ -57,13 +77,16 @@ export default {
   font-size: 14px;
 }
 
-.btn-success {
+.btn-success, .btn-block {
   font-size: 14px;
   background-color: #00B900;
   border-color: #00B900;
 }
 
-.card-img-top {
-  height: 243px;
+@media only screen and (min-width: 1200px) {
+  .container {
+    max-width: 960px !important;
+  }
 }
+
 </style>

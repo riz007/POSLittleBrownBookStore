@@ -25,4 +25,9 @@ export default {
 #app {
   font-family: 'Montserrat', sans-serif;
 }
+@media only screen and (min-width: 1200px) {
+  .container {
+    max-width: 960px !important;
+  }
+}
 </style>
